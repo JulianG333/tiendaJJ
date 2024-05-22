@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load product_extra %}
+
+{% block content %}
+
+{% if cart.products.exists %}
+<div class="col-8">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+
+           {% for cp in cart.products_related %} 
+           {% with product=cp.product %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="Imagen del producto" width="60" height="60">
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'facilito:product' product.slug %}" class="btn btn-primary"><i class="fas fa-eye"></i> {{ product.title }} </a>
+                    {% include 'carts/snippets/remove.html' %}
+                </td>
+                <td>{{ cp.quantity }}</td>
+                <td>
+                    <span class="font-wight-bold text-danger">{{ product.print | price_format }}</span>
+                </td>
+            </tr>
+            {% endwith %}
+           {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col">
+    <div class="card">
+        <div class="card-body">
+            <div class="font-weight-bold">
+                Subtotal ({{ cart.products.count }}) <span class="text-danger">{{ cart.subtotal | price_format }}</span>
+            </div>
+            <div class="mt-2">
+                <a href="{% url 'orders:order' %}" class="btn btn-warning"><i class="far fa-credit-card"></i> Proceder al pago</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="col">
+    <p class="h3">Tu carrito está vacío</p>
+    <a href="{% url 'index' %}">Seguir comprando</a>
+</div>
+{% endif %}
+
+{% endblock %}

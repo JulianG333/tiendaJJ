@@ -1,0 +1,26 @@
+[
+{
+    "model": "facilito.product",
+    "pk": 1,
+    "fields": {
+        "title": "camiseta",
+        "description": "camiseta TU",
+        "print": "14.00",
+        "created_at": "2024-05-09T20:58:46.161Z",
+        "image": "products/camiseta.jpg",
+        "slug": "camiseta"
+    }
+},
+{
+    "model": "facilito.product",
+    "pk": 2,
+    "fields": {
+        "title": "Cama",
+        "description": "cama doble",
+        "print": "600.00",
+        "created_at": "2024-05-10T15:52:14.040Z",
+        "image": "products/imagen_2024-05-10_105211224.png",
+        "slug": "cama"
+    }
+}
+]

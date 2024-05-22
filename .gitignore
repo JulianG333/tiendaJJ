@@ -1,0 +1,49 @@
+# Python
+*.pyc
+__pycache__/
+
+# Django
+*.sqlite3
+*.pyc
+*.pyo
+*.py~
+__pycache__/
+*.egg-info/
+.env
+
+# Editor
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# IDE
+.idea/
+
+# Logs and databases
+*.log
+*.sql
+
+# Compiled Python files
+*.pyc
+
+# Dependency directories
+env/
+venv/
+env_bkp/
+venv_bkp/
+
+# Static files
+/staticfiles/
+
+# Media files
+/media/
+
+# Ignore local settings
+local_settings.py
+
+# Ignore sensitive information
+*.secret
+
+
+  git config --global user.email "juliancamacho2003@gmail.com"
+  git config --global user.name "JulianG333"
