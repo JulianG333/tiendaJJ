@@ -44,6 +44,3 @@ local_settings.py
 # Ignore sensitive information
 *.secret
 
-
-  git config --global user.email "juliancamacho2003@gmail.com"
-  git config --global user.name "JulianG333"
