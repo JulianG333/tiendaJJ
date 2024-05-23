@@ -19,12 +19,14 @@
         </li>
     </ul>
     <ul class="navbar-nav">
+        {% if user.is_authenticated %}
         <li class="nav-item {% if request.path == shipping_addresses %}active{% endif %}">
             <a class="nav-link" href="{{ shipping_addresses }}">
                 Mis direcciones
                 <span class="fas fa-location-arrow"></span>
             </a>
         </li>
+        {% endif %}
     </ul>
     <div class="collapse navbar-collapse justify-content-end" id="navb">
       <ul class="navbar-nav">
