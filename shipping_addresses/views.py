@@ -1,15 +1,13 @@
-from typing import Any
-from django.http import HttpRequest
-from django.http.response import HttpResponse
-from django.shortcuts import render,redirect, reverse
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import ShippingAddress
 from django.views.generic import ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from .forms import ShippingAddressForm
+from django.urls import reverse, reverse_lazy
 
 class ShippingAddressListView(LoginRequiredMixin, ListView):
     login_url = 'login'
@@ -19,7 +17,7 @@ class ShippingAddressListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return ShippingAddress.objects.filter(user=self.request.user).order_by('-default')
     
-class ShippongAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ShippingAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     login_url = 'login'
     model = ShippingAddress
     form_class = ShippingAddressForm
@@ -32,7 +30,22 @@ class ShippongAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
     def dispatch(self, request, *args,  **kwargs):
         if request.user.id != self.get_object().user_id:
             return redirect('carts:cart')
-        return super(ShippongAddressUpdateView, self).dispatch(request, *args, **kwargs)
+        return super(ShippingAddressUpdateView, self).dispatch(request, *args, **kwargs)
+    
+class ShippingAddressDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = 'login'
+    model = ShippingAddress
+    template_name = 'shipping_address/delete.html'
+    success_url = reverse_lazy('shipping_addresses:shipping_addresses')
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object().default:
+            return redirect('shipping_addresses:shipping_addresses')
+        
+        if request.user.id != self.get_object().user_id:
+            return redirect('carts:cart')
+        
+        return super(ShippingAddressDeleteView, self().dispatch(request, *args, **kwargs))
 
     
 @login_required(login_url='login')
