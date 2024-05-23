@@ -1,3 +1,6 @@
+from typing import Any
+from django.http import HttpRequest
+from django.http.response import HttpResponse
 from django.shortcuts import render,redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,6 +28,11 @@ class ShippongAddressUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
 
     def get_success_url(self):
         return reverse('shipping_addresses:shipping_addresses')
+    
+    def dispatch(self, request, *args,  **kwargs):
+        if request.user.id != self.get_object().user_id:
+            return redirect('carts:cart')
+        return super(ShippongAddressUpdateView, self).dispatch(request, *args, **kwargs)
 
     
 @login_required(login_url='login')
