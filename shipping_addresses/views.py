@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -7,6 +8,8 @@ from .models import ShippingAddress
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView, DeleteView
 from .forms import ShippingAddressForm
+from carts.utils import get_or_create_cart
+from orders.utils import get_or_create_order
 from django.urls import reverse, reverse_lazy
 
 class ShippingAddressListView(LoginRequiredMixin, ListView):
@@ -59,6 +62,14 @@ def create(request):
         shipping_address.default = not request.user.has_shipping_address()
 
         shipping_address.save()
+
+        if request.GET.get('next'):
+            if request.GET['next'] == reverse('orders:address'):
+                cart = get_or_create_cart(request)
+                order = get_or_create_order(cart, request)
+                order.update_shipping_address(shipping_address)
+
+                return HttpResponseRedirect(request.GET['next'])
 
         messages.success(request, 'Dirección creada exitosamente')
         return redirect('shipping_addresses:shipping_addresses')
