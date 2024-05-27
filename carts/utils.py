@@ -2,7 +2,7 @@ from .models import Cart
 
 def get_or_create_cart(request):
     user = request.user if request.user.is_authenticated else None
-    cart_id = request.session.get('cart.id')
+    cart_id = request.session.get('cart_id')
     cart = Cart.objects.filter(cart_id=cart_id).first() 
     
     if cart is None:
@@ -12,6 +12,10 @@ def get_or_create_cart(request):
         cart.user = user
         cart.save()
 
-    request.session['cart.id'] = cart.cart_id
+    request.session['cart_id'] = cart.cart_id
 
     return cart
+
+
+def destroy_cart(request):
+    request.session['cart_id'] = None

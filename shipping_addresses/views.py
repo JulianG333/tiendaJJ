@@ -48,7 +48,10 @@ class ShippingAddressDeleteView(LoginRequiredMixin, DeleteView):
         if request.user.id != self.get_object().user_id:
             return redirect('carts:cart')
         
-        return super(ShippingAddressDeleteView, self().dispatch(request, *args, **kwargs))
+        if self.get_object().has_orders():
+            return redirect('shipping_addresses:shipping_addresses')
+        
+        return super().dispatch(request, *args, **kwargs)
 
     
 @login_required(login_url='login')

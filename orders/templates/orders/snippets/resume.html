@@ -30,12 +30,12 @@
             <div class="font-weight-bold text-danger">
                 Total (Impuestos incluidos)
                 <div class="d-inline-block">
-                    {{ order.total }}
+                    {{ order.total | price_format }}
                 </div>
             </div>
         </div>
         <div class="mt-2">
-            <a href="{% url 'orders:address' %}" class="btn btn-warning">Confirmar pedido</a>
+            <a href="{{ next_url }}" class="btn btn-warning">Confirmar pedido</a>
         </div>
     </div>
 </div>
