@@ -1,5 +1,6 @@
 from django.urls import path
-
+from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 from . import views
 
 app_name = 'orders'
@@ -12,5 +13,6 @@ urlpatterns = [
         path('confirmacion', views.confirm, name='confirm'),
         path('cancelar', views.cancel, name='cancel'),
         path('completar', views.complete, name='complete'),
+        path('completados', views.OrderListView.as_view(), name='completed'),
 ]
 
