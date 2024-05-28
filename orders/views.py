@@ -31,7 +31,7 @@ def order(request,cart,order):
 @validate_cart_and_order
 def address(request, cart, order):
     shipping_address = order.get_or_set_shipping_address()
-    can_chosse_address = request.user.shippingaddress_set.count() > 1
+    can_chosse_address = request.user.has_shipping_addresses()
 
     return render(request, 'orders/address.html',{
         'cart': cart,
@@ -43,7 +43,7 @@ def address(request, cart, order):
 
 @login_required(login_url='login')
 def select_address(request):
-    shipping_addresses = request.user.shippingaddress_set.all()
+    shipping_addresses = request.user.addresses
 
     return render(request, 'orders/select_address.html',{
         'breadcrumb': breadcrumb(addres=True),
