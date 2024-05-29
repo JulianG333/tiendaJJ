@@ -3,7 +3,7 @@
 {% url 'carts:cart' as cart %}
 {% url 'shipping_addresses:shipping_addresses' as shipping_addresses %}
 {% url 'orders:completed' as completed %}
-
+{% url 'billing_profiles:create' as billing_profiles %}
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a href="{% url 'index' %}" class="navbar-brand">Tienda JJ</a>
@@ -31,6 +31,12 @@
             <a class="nav-link" href="{{ completed }}">
                 Mis pedidos
                 <span class="fas fa-shipping-fast"></span>
+            </a>
+        </li>
+        <li class="nav-item {% if request.path == billing_profiles %}active{% endif %}">
+            <a class="nav-link" href="{{ billing_profiles }}">
+                Mis métodos de pago
+                <span class="fab fa-cc-stripe"></span>
             </a>
         </li>
         {% endif %}
