@@ -129,6 +129,9 @@ EMAIL_HOST_USER = 'juliancamacho2003@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 
+STRIPE_PUBLIC_KEY = 'pk_test_51PLoj7RuNHxmQuHw0THJjYJqNu8jDuKT8bURudaDw87OhCjTRp3h8yomGNwCtC7T8yD5ZV7uMDFpKO24mpifC4FO00nCvmjdmB'
+STRIPE_PRIVATE_KEY = 'sk_test_51PLoj7RuNHxmQuHwTjQDVUlPJxHwxca6vLnJ6DCwXF3625b8XCuyJgJHARFAE3kVgElmWBcEUZrhLLMOixWnU9KW00mvQu97PV'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
